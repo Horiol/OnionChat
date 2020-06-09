@@ -1,0 +1,30 @@
+{
+  "name": "onion-chat",
+  "version": "1.0.0",
+  "description": "Desktop messaging app that use onion service protocol to make the system decentralized and anonimous",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Horiol/OnionChat.git"
+  },
+  "keywords": [
+    "Electron",
+    "Python",
+    "gRPC",
+    "Onion",
+    "Tor"
+  ],
+  "author": "Horiol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Horiol/OnionChat/issues"
+  },
+  "homepage": "https://github.com/Horiol/OnionChat#readme",
+  "devDependencies": {
+    "electron": "^9.0.3"
+  }
+}
