@@ -1,17 +1,36 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Tray, Menu } = require('electron')
 
-function createWindow () {
-  // Crea la ventana del navegador.
-  let win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
+var iconpath = "icon.png"
 
-  // y carga el  index.html de la aplicación.
-  win.loadFile('index.html')
+function createWindow() {
+    let win = new BrowserWindow({ width: 600, height: 600, icon: iconpath })
+
+    win.loadFile('index.html')
+
+    var appIcon = new Tray(iconpath)
+    var contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Show App', click: function () {
+                win.show()
+            }
+        },
+        {
+            label: 'Quit', click: function () {
+                app.isQuiting = true
+                app.quit()
+            }
+        }
+    ])
+
+    appIcon.setContextMenu(contextMenu)
+    win.on('close', function (event) {
+        win = null
+    })
+
+    win.on('minimize', function (event) {
+        event.preventDefault()
+        win.hide()
+    })
 }
 
-app.whenReady().then(createWindow)
+app.on('ready', createWindow)
