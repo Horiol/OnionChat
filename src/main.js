@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron')
 
-var iconpath = "icon.png"
+var iconpath = "icon.png";
+let isQuiting = false;
 
 function createWindow() {
     let win = new BrowserWindow({ width: 600, height: 600, icon: iconpath })
@@ -16,15 +17,20 @@ function createWindow() {
         },
         {
             label: 'Quit', click: function () {
-                app.isQuiting = true
+                isQuiting = true
                 app.quit()
             }
         }
     ])
 
     appIcon.setContextMenu(contextMenu)
+
     win.on('close', function (event) {
-        win = null
+        if (!isQuiting) {
+            event.preventDefault();
+            win.hide();
+            event.returnValue = false;
+        }
     })
 
     win.on('minimize', function (event) {
@@ -34,3 +40,7 @@ function createWindow() {
 }
 
 app.on('ready', createWindow)
+
+app.on('before-quit', function () {
+    isQuiting = true;
+});
