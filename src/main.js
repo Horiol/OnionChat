@@ -1,12 +1,30 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron')
+const { spawn } = require('child_process');
 
-var iconpath = "icon.png";
 let isQuiting = false;
+let backend = null;
+
+const iconpath = "icon.png";
+
+function createBackend() {
+    backend = spawn('python', ['backend/main.py'])
+}
+
 
 function createWindow() {
-    let win = new BrowserWindow({ width: 600, height: 600, icon: iconpath })
+    createBackend()
+
+    let win = new BrowserWindow({ 
+        width: 600, 
+        height: 600, 
+        icon: iconpath, 
+        webPreferences: {
+            nodeIntegration: true
+        }
+    })
 
     win.loadFile('index.html')
+    win.webContents.openDevTools()
 
     var appIcon = new Tray(iconpath)
     var contextMenu = Menu.buildFromTemplate([
