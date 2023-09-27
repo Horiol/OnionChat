@@ -9,6 +9,6 @@ MarkupSafe==1.1.1
 msgpack==1.0.0
 pyzmq==19.0.1
 stem==1.8.0
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 zope.event==4.4
 zope.interface==5.1.0
